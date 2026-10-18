@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seulgi iPhone Story</title>
+  <title>강슬기의 아이폰</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,65 +13,48 @@
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(135deg, #f4d8c6, #efe6dc, #d9c0a5);
+      background: linear-gradient(135deg, #e7d2bf, #f5eee8, #d8c0a7);
       min-height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 24px;
+      align-items: center;
+      padding: 20px;
     }
 
     .phone {
-      width: 360px;
+      width: 390px;
       max-width: 100%;
-      height: 740px;
+      height: 844px;
       background: #111;
-      border-radius: 42px;
+      border-radius: 46px;
       padding: 12px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.35);
       position: relative;
     }
 
     .screen {
       width: 100%;
       height: 100%;
-      border-radius: 32px;
+      border-radius: 34px;
       overflow: hidden;
       position: relative;
       background: #000;
     }
 
     .wallpaper {
-      background-image: url("./wallpaper.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      background: url('./wallpaper.jpg') center center / cover no-repeat;
     }
 
-    .overlay-dark {
+    .dark-layer {
       position: absolute;
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(0,0,0,0.28),
         rgba(0,0,0,0.18),
-        rgba(0,0,0,0.4)
+        rgba(0,0,0,0.12),
+        rgba(0,0,0,0.22)
       );
-    }
-
-    .status-bar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding: 18px 18px 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: white;
-      font-size: 15px;
-      font-weight: 600;
-      z-index: 5;
+      z-index: 1;
     }
 
     .dynamic-island {
@@ -79,11 +62,26 @@
       top: 10px;
       left: 50%;
       transform: translateX(-50%);
-      width: 120px;
-      height: 32px;
+      width: 126px;
+      height: 34px;
       background: #000;
-      border-radius: 20px;
-      z-index: 6;
+      border-radius: 22px;
+      z-index: 30;
+    }
+
+    .status-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 25;
+      padding: 18px 18px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
     }
 
     .lock-screen,
@@ -93,160 +91,190 @@
       inset: 0;
     }
 
+    .lock-screen {
+      z-index: 10;
+    }
+
     .lock-content {
       position: relative;
-      z-index: 4;
+      z-index: 5;
       height: 100%;
-      color: white;
+      color: #fff;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: space-between;
-      padding: 100px 24px 28px;
+      align-items: center;
+      padding: 108px 24px 30px;
       text-align: center;
+    }
+
+    .owner-label {
+      margin-top: 18px;
+      font-size: 15px;
+      opacity: 0.95;
+      letter-spacing: 0.2px;
     }
 
     .date {
       font-size: 20px;
-      opacity: 0.95;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      font-weight: 500;
     }
 
     .time {
-      font-size: 72px;
+      font-size: 74px;
       line-height: 1;
       font-weight: 700;
       letter-spacing: -2px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .lock-title {
       font-size: 18px;
       font-weight: 700;
-      margin-top: 10px;
       margin-bottom: 8px;
     }
 
     .lock-sub {
       font-size: 14px;
       line-height: 1.55;
-      opacity: 0.95;
-      max-width: 260px;
+      max-width: 270px;
+      opacity: 0.96;
     }
 
-    .swipe-hint {
-      background: rgba(255,255,255,0.18);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 10px 18px;
+    .unlock-btn {
+      padding: 12px 20px;
       border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(12px);
+      color: #fff;
       font-size: 14px;
-      backdrop-filter: blur(10px);
-      margin-bottom: 8px;
     }
 
     .home-screen {
       display: none;
-      color: white;
+      z-index: 12;
     }
 
-    .home-inner {
+    .home-content {
       position: relative;
-      z-index: 4;
+      z-index: 5;
       height: 100%;
-      padding: 64px 18px 24px;
+      padding: 64px 18px 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .home-header {
-      text-align: left;
-      margin-bottom: 12px;
+    .home-top {
+      color: #fff;
     }
 
-    .home-header h1 {
-      margin: 0;
+    .home-owner {
       font-size: 28px;
       font-weight: 800;
-      line-height: 1.15;
+      margin: 0;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.25);
     }
 
-    .home-header p {
-      margin: 8px 0 0;
+    .home-sub {
+      margin-top: 6px;
       font-size: 14px;
       opacity: 0.95;
-      line-height: 1.5;
+      line-height: 1.45;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.25);
     }
 
-    .app-grid {
+    .apps-grid {
+      margin-top: 24px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 18px 12px;
       align-content: start;
-      margin-top: 18px;
     }
 
-    .app {
+    .app-icon-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 7px;
       cursor: pointer;
       user-select: none;
+      border: none;
+      background: transparent;
+      color: #fff;
+      padding: 0;
     }
 
-    .app-icon {
-      width: 62px;
-      height: 62px;
+    .app-icon-wrap {
+      width: 64px;
+      height: 64px;
       border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+      background: rgba(255,255,255,0.18);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
-      background: rgba(255,255,255,0.18);
-      backdrop-filter: blur(10px);
+    }
+
+    .app-icon-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .app-label {
       font-size: 12px;
-      text-shadow: 0 1px 5px rgba(0,0,0,0.35);
+      text-shadow: 0 1px 5px rgba(0,0,0,0.4);
     }
 
     .dock {
+      padding: 10px 12px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .dock-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 26px;
-      background: rgba(255,255,255,0.18);
-      backdrop-filter: blur(14px);
+      gap: 12px;
+    }
+
+    .dock .app-icon-wrap {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto;
     }
 
     .app-screen {
       display: none;
-      background: #f7f7fb;
+      z-index: 50;
+      background: #f3f4f8;
       color: #111;
-      z-index: 20;
     }
 
     .app-topbar {
-      padding: 52px 16px 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid #e6e6ef;
-      background: rgba(255,255,255,0.82);
-      backdrop-filter: blur(10px);
       position: sticky;
       top: 0;
       z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 52px 16px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid #e5e7ef;
     }
 
     .back-btn {
       border: none;
-      background: #ececf4;
+      background: #eceef5;
       border-radius: 12px;
       padding: 8px 12px;
       font-size: 14px;
@@ -259,82 +287,267 @@
     }
 
     .app-content {
-      padding: 16px;
-      height: calc(100% - 76px);
+      height: calc(100% - 82px);
       overflow: auto;
+      padding: 16px;
     }
 
-    .message-list,
-    .note-list {
+    /* Kakao */
+    .kakao-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-room {
+      background: #fff;
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .chat-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: #fee500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .chat-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chat-name-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chat-name {
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .chat-time {
+      font-size: 12px;
+      color: #888;
+      flex-shrink: 0;
+    }
+
+    .chat-preview {
+      margin-top: 4px;
+      font-size: 13px;
+      color: #666;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chat-detail {
+      display: none;
+      height: 100%;
+      background: #b8d1e8;
+    }
+
+    .chat-header {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      padding: 52px 16px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(199,218,236,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .chat-messages {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: calc(100% - 80px);
+    }
+
+    .bubble-row {
+      display: flex;
+      flex-direction: column;
+      max-width: 78%;
+    }
+
+    .bubble-row.them {
+      align-self: flex-start;
+      align-items: flex-start;
+    }
+
+    .bubble-row.me {
+      align-self: flex-end;
+      align-items: flex-end;
+    }
+
+    .bubble {
+      padding: 11px 13px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.5;
+      word-break: keep-all;
+      white-space: pre-line;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .bubble-row.them .bubble {
+      background: #fff;
+      color: #111;
+      border-top-left-radius: 6px;
+    }
+
+    .bubble-row.me .bubble {
+      background: #fee500;
+      color: #111;
+      border-top-right-radius: 6px;
+    }
+
+    .bubble-time {
+      margin-top: 4px;
+      font-size: 11px;
+      color: rgba(0,0,0,0.55);
+    }
+
+    /* Notes */
+    .notes-list {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
-    .message-item,
-    .note-item {
-      background: white;
+    .note-card {
+      background: #fffef3;
       border-radius: 18px;
-      padding: 14px 15px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     }
 
-    .message-name {
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .message-preview {
-      color: #555;
-      line-height: 1.5;
-      font-size: 14px;
-    }
-
-    .note-item h3 {
-      margin: 0 0 8px;
+    .note-title {
       font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 8px;
     }
 
-    .note-item p {
-      margin: 0;
-      color: #444;
-      line-height: 1.6;
+    .note-body {
       font-size: 14px;
+      color: #444;
+      line-height: 1.7;
       white-space: pre-line;
     }
 
-    .photo-card {
-      background: white;
+    /* Phone log */
+    .call-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .call-item {
+      background: #fff;
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .call-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .call-name {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .call-meta {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .call-time {
+      font-size: 12px;
+      color: #888;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* Photo / camera / instagram */
+    .photo-card,
+    .simple-card {
+      background: #fff;
       border-radius: 22px;
-      padding: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      padding: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     }
 
     .photo-card img {
       width: 100%;
-      display: block;
       border-radius: 16px;
+      display: block;
     }
 
-    .photo-caption {
-      font-size: 14px;
-      color: #444;
+    .caption {
       margin-top: 10px;
-      line-height: 1.5;
-    }
-
-    .info-box {
-      background: white;
-      border-radius: 18px;
-      padding: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-      line-height: 1.7;
       font-size: 14px;
-      color: #333;
+      color: #555;
+      line-height: 1.6;
+      white-space: pre-line;
     }
 
-    .hidden {
-      display: none !important;
+    .insta-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .insta-circle {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffcf5b, #ff5a78, #925cff);
+      padding: 3px;
+    }
+
+    .insta-circle-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 22px;
+    }
+
+    .muted {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
     }
 
     @media (max-width: 430px) {
@@ -361,168 +574,198 @@
     <div class="screen wallpaper">
       <div class="dynamic-island"></div>
 
-      <!-- LOCK SCREEN -->
+      <div class="status-bar">
+        <span id="statusTime">9:41</span>
+        <span>📶 Wi‑Fi 🔋</span>
+      </div>
+
+      <!-- 잠금화면 -->
       <section class="lock-screen" id="lockScreen">
-        <div class="overlay-dark"></div>
-
-        <div class="status-bar">
-          <span id="statusTime">9:41</span>
-          <span>📶  Wi‑Fi  🔋</span>
-        </div>
-
+        <div class="dark-layer"></div>
         <div class="lock-content">
           <div>
             <div class="date" id="lockDate">10월 18일 일요일</div>
             <div class="time" id="lockTime">9:41</div>
+            <div class="owner-label">강슬기의 iPhone</div>
             <div class="lock-title">오늘의 기록</div>
             <div class="lock-sub">
-              메시지, 사진, 메모 사이에 숨어 있는 작은 이야기.  
-              화면을 눌러 잠금을 해제해보세요.
+              카카오톡, 메모, 전화기록 속에 숨어 있는 작은 이야기.  
+              화면을 눌러 잠금을 해제하세요.
             </div>
           </div>
 
-          <div class="swipe-hint" id="unlockButton">탭해서 열기</div>
+          <div class="unlock-btn">탭해서 열기</div>
         </div>
       </section>
 
-      <!-- HOME SCREEN -->
+      <!-- 홈화면 -->
       <section class="home-screen" id="homeScreen">
-        <div class="overlay-dark"></div>
+        <div class="dark-layer"></div>
 
-        <div class="status-bar">
-          <span id="homeStatusTime">9:41</span>
-          <span>📶  Wi‑Fi  🔋</span>
-        </div>
+        <div class="home-content">
+          <div class="home-top">
+            <h1 class="home-owner">강슬기</h1>
+            <div class="home-sub">메시지와 메모, 전화기록을 직접 수정할 수 있는 스토리형 아이폰 화면</div>
 
-        <div class="home-inner">
-          <div>
-            <div class="home-header">
-              <h1>누군가의 아이폰을<br>열어보세요.</h1>
-              <p>아래 앱들을 눌러 작은 이야기들을 둘러볼 수 있어요.</p>
-            </div>
+            <div class="apps-grid">
+              <button class="app-icon-btn" data-app="instagramApp">
+                <div class="app-icon-wrap"><img src="./icon-instagram.jpg" alt="Instagram"></div>
+                <div class="app-label">Instagram</div>
+              </button>
 
-            <div class="app-grid">
-              <div class="app" data-app="photos">
-                <div class="app-icon">🌼</div>
-                <div class="app-label">사진</div>
-              </div>
+              <button class="app-icon-btn" data-app="kakaoApp">
+                <div class="app-icon-wrap"><img src="./icon-kakao.jpg" alt="KakaoTalk"></div>
+                <div class="app-label">KakaoTalk</div>
+              </button>
 
-              <div class="app" data-app="messages">
-                <div class="app-icon">💬</div>
-                <div class="app-label">메시지</div>
-              </div>
-
-              <div class="app" data-app="notes">
-                <div class="app-icon">📝</div>
+              <button class="app-icon-btn" data-app="notesApp">
+                <div class="app-icon-wrap" style="background:#fff8b5; font-size:30px;">📝</div>
                 <div class="app-label">메모</div>
-              </div>
+              </button>
 
-              <div class="app" data-app="info">
-                <div class="app-icon">✨</div>
-                <div class="app-label">정보</div>
-              </div>
+              <button class="app-icon-btn" data-app="photosApp">
+                <div class="app-icon-wrap"><img src="./icon-photos.jpg" alt="Photos"></div>
+                <div class="app-label">사진</div>
+              </button>
+
+              <button class="app-icon-btn" data-app="phoneApp">
+                <div class="app-icon-wrap"><img src="./icon-phone.jpg" alt="Phone"></div>
+                <div class="app-label">전화</div>
+              </button>
+
+              <button class="app-icon-btn" data-app="cameraApp">
+                <div class="app-icon-wrap"><img src="./icon-camera.jpg" alt="Camera"></div>
+                <div class="app-label">카메라</div>
+              </button>
             </div>
           </div>
 
           <div class="dock">
-            <div class="app" data-app="messages">
-              <div class="app-icon">📞</div>
-            </div>
-            <div class="app" data-app="photos">
-              <div class="app-icon">🖼️</div>
-            </div>
-            <div class="app" data-app="notes">
-              <div class="app-icon">🗒️</div>
-            </div>
-            <div class="app" data-app="info">
-              <div class="app-icon">⚙️</div>
+            <div class="dock-grid">
+              <button class="app-icon-btn" data-app="phoneApp">
+                <div class="app-icon-wrap"><img src="./icon-phone.jpg" alt="Phone"></div>
+              </button>
+
+              <button class="app-icon-btn" data-app="safariApp">
+                <div class="app-icon-wrap"><img src="./icon-safari.jpg" alt="Safari"></div>
+              </button>
+
+              <button class="app-icon-btn" data-app="kakaoApp">
+                <div class="app-icon-wrap"><img src="./icon-kakao.jpg" alt="KakaoTalk"></div>
+              </button>
+
+              <button class="app-icon-btn" data-app="photosApp">
+                <div class="app-icon-wrap"><img src="./icon-photos.jpg" alt="Photos"></div>
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- PHOTOS APP -->
+      <!-- 카카오톡 -->
+      <section class="app-screen" id="kakaoApp">
+        <div class="app-topbar">
+          <button class="back-btn" onclick="goHome()">← 홈</button>
+          <div class="app-title">KakaoTalk</div>
+        </div>
+        <div class="app-content">
+          <div class="kakao-list" id="kakaoRoomList"></div>
+          <div class="chat-detail" id="chatDetailView"></div>
+        </div>
+      </section>
+
+      <!-- 메모 -->
+      <section class="app-screen" id="notesApp">
+        <div class="app-topbar">
+          <button class="back-btn" onclick="goHome()">← 홈</button>
+          <div class="app-title">메모</div>
+        </div>
+        <div class="app-content">
+          <div class="notes-list" id="notesList"></div>
+        </div>
+      </section>
+
+      <!-- 전화 -->
+      <section class="app-screen" id="phoneApp">
+        <div class="app-topbar">
+          <button class="back-btn" onclick="goHome()">← 홈</button>
+          <div class="app-title">최근 통화</div>
+        </div>
+        <div class="app-content">
+          <div class="call-list" id="callList"></div>
+        </div>
+      </section>
+
+      <!-- 사진 -->
       <section class="app-screen" id="photosApp">
         <div class="app-topbar">
-          <button class="back-btn" onclick="goHome()">← 뒤로</button>
+          <button class="back-btn" onclick="goHome()">← 홈</button>
           <div class="app-title">사진</div>
         </div>
         <div class="app-content">
           <div class="photo-card">
-            <img src="./wallpaper.jpg" alt="wallpaper photo">
-            <div class="photo-caption">
-              오늘의 사진.  
-              같이 남긴 순간들은 작은 필름처럼 오래 남아.
+            <img src="./wallpaper.jpg" alt="Wallpaper Photo" />
+            <div class="caption">
+              강슬기의 배경화면 사진.  
+              이 이미지는 홈 화면과 잠금 화면의 배경으로도 사용됨.
             </div>
           </div>
         </div>
       </section>
 
-      <!-- MESSAGES APP -->
-      <section class="app-screen" id="messagesApp">
+      <!-- 카메라 -->
+      <section class="app-screen" id="cameraApp">
         <div class="app-topbar">
-          <button class="back-btn" onclick="goHome()">← 뒤로</button>
-          <div class="app-title">메시지</div>
+          <button class="back-btn" onclick="goHome()">← 홈</button>
+          <div class="app-title">카메라</div>
         </div>
         <div class="app-content">
-          <div class="message-list">
-            <div class="message-item">
-              <div class="message-name">오늘의 기록</div>
-              <div class="message-preview">사진 한 장에도 하루의 분위기가 다 들어간다.</div>
-            </div>
-            <div class="message-item">
-              <div class="message-name">비밀 메세지</div>
-              <div class="message-preview">평범해 보이는 화면 안에도 누군가의 마음이 숨어 있다.</div>
-            </div>
-            <div class="message-item">
-              <div class="message-name">메모</div>
-              <div class="message-preview">이 웹사이트는 GitHub Pages로 열 수 있는 작은 인터랙티브 스토리예요.</div>
+          <div class="simple-card">
+            <div class="muted">
+              실제 촬영 기능은 없고, 스토리용 더미 화면이야.<br><br>
+              원하면 나중에 “사진 찍는 척하는 UI”도 추가할 수 있어.
             </div>
           </div>
         </div>
       </section>
 
-      <!-- NOTES APP -->
-      <section class="app-screen" id="notesApp">
+      <!-- 인스타 -->
+      <section class="app-screen" id="instagramApp">
         <div class="app-topbar">
-          <button class="back-btn" onclick="goHome()">← 뒤로</button>
-          <div class="app-title">메모</div>
+          <button class="back-btn" onclick="goHome()">← 홈</button>
+          <div class="app-title">Instagram</div>
         </div>
         <div class="app-content">
-          <div class="note-list">
-            <div class="note-item">
-              <h3>10월 18일</h3>
-              <p>오늘의 기록은 아직 끝나지 않은 이야기.
-사진, 메시지, 메모 사이에 남겨 둔 작은 마음들.</p>
+          <div class="simple-card">
+            <div class="insta-profile">
+              <div class="insta-circle">
+                <div class="insta-circle-inner">강</div>
+              </div>
+              <div>
+                <div style="font-weight:800;">@kangseulgi</div>
+                <div class="muted">강슬기의 계정 · 스토리용 샘플 화면</div>
+              </div>
             </div>
-            <div class="note-item">
-              <h3>생각</h3>
-              <p>이 사이트는 하나의 휴대폰 안을 탐험하는 느낌으로 만들었다.
-원하면 나중에 카카오톡, 갤러리, 통화기록 스타일도 더 추가할 수 있다.</p>
+            <div class="muted">
+              여기도 나중에 게시물/스토리 형식으로 확장 가능해.<br>
+              지금은 홈 화면 분위기용 앱으로 넣어둔 상태야.
             </div>
           </div>
         </div>
       </section>
 
-      <!-- INFO APP -->
-      <section class="app-screen" id="infoApp">
+      <!-- 사파리 -->
+      <section class="app-screen" id="safariApp">
         <div class="app-topbar">
-          <button class="back-btn" onclick="goHome()">← 뒤로</button>
-          <div class="app-title">정보</div>
+          <button class="back-btn" onclick="goHome()">← 홈</button>
+          <div class="app-title">Safari</div>
         </div>
         <div class="app-content">
-          <div class="info-box">
-            <strong>Fictional Phone Experience</strong><br><br>
-            이 페이지는 실제 아이폰이 아니라,  
-            누군가의 휴대폰을 탐험하는 느낌을 주는 인터랙티브 웹페이지예요.<br><br>
-            원하는 경우 나중에 아래 기능도 더 넣을 수 있어요.
-            <br><br>
-            • 카카오톡 채팅방  
-            • 사진 여러 장 갤러리  
-            • 메모 상세 페이지  
-            • 통화 기록  
-            • 비밀번호 잠금 해제 연출  
-            • 진짜 앱처럼 화면 전환 애니메이션
+          <div class="simple-card">
+            <div class="muted">
+              Safari 더미 화면이야.<br><br>
+              원하면 검색 기록, 열린 탭, 특정 사이트 화면처럼 꾸며줄 수도 있어.
+            </div>
           </div>
         </div>
       </section>
@@ -530,30 +773,103 @@
   </div>
 
   <script>
+    /* =========================
+       여기만 수정하면 됨
+       ========================= */
+
+    const PHONE_OWNER = "강슬기";
+
+    const KAKAO_ROOMS = [
+      {
+        name: "혀니💛",
+        avatar: "혀니",
+        time: "오후 9:41",
+        preview: "응급실 떡볶이 부상맛 오뎅튀김 추가 쿨피스 자두맛",
+        messages: [
+          { from: "them", text: "주이나 언제 와요?", time: "오후 9:35" },
+          { from: "me", text: "나 지금 퇴근해~", time: "오후 9:36" },
+          { from: "them", text: "올 때 떡볶이 사오면 안 되나...?", time: "오후 9:37" }
+          { from: "them", text: "떡볶이가 나를 부르는데.", time: "오후 9:37" },
+          { from: "me", text: "어디 떡볶이?", time: "오후 9:38" },
+          { from: "them", text: "응급실 떡볶이 부상맛 오뎅튀김 추가 쿨피스 자두맛", time: "오후 9:41" }
+        ]
+      },
+      {
+        name: "손승완",
+        avatar: "손",
+        time: "오후 7:18",
+        preview: "그냥 퇴근해 시간 너무 늦었다.",
+        messages: [
+          { from: "them", text: "저번에 말했던 거 주현씨 선물리스트 책상에 올려뒀어유", time: "오후 5:10" },
+          { from: "me", text: "넵", time: "오후 5:16" } 
+          { from: "them", text: "오늘도 야근합니까", time: "오후 6:18" },
+          { from: "me", text: "늘 그렇지 뭐... 미안.", time: "오후 6:18" } 
+          { from: "them", text: "김대표님이 파일 보내줬던 거 있어요?", time: "오후 7:10" },
+          { from: "me", text: "있어. 내가 할게 그냥 퇴근해 시간 너무 늦었다.", time: "오후 7:12" }
+        ]
+      }
+    ];
+
+    const NOTES_DATA = [
+      {
+        title: "10월 18일",
+        body: "혀니 선물 리스트 손승완한테 달라고 하기."
+      },
+      {
+        title: "현백 상품권",
+        body: "안마의자, 노트북? 신발... 음."
+      }
+    ];
+
+    const CALL_LOGS = [
+      {
+        name: "손승완",
+        type: "부재중 전화",
+        detail: "휴대전화",
+        time: "오늘 · 오후 6:14"
+      },
+      {
+        name: "혀니💛",
+        type: "발신",
+        detail: "휴대전화 · 12분 33초",
+        time: "오늘 · 오후 3:22"
+      },
+      {
+        name: "청소이모",
+        type: "수신",
+        detail: "휴대전화 · 1분 02초",
+        time: "어제 · 오후 11:48"
+      }
+    ];
+
+    /* =========================
+       기본 동작
+       ========================= */
+
     const lockScreen = document.getElementById("lockScreen");
     const homeScreen = document.getElementById("homeScreen");
-    const unlockButton = document.getElementById("unlockButton");
 
-    const appMap = {
-      photos: document.getElementById("photosApp"),
-      messages: document.getElementById("messagesApp"),
-      notes: document.getElementById("notesApp"),
-      info: document.getElementById("infoApp")
-    };
+    const appIds = [
+      "kakaoApp",
+      "notesApp",
+      "phoneApp",
+      "photosApp",
+      "cameraApp",
+      "instagramApp",
+      "safariApp"
+    ];
 
     function updateTime() {
       const now = new Date();
-      const hour = now.getHours();
-      const minute = String(now.getMinutes()).padStart(2, "0");
-      const timeString = `${hour}:${minute}`;
+      const h = now.getHours();
+      const m = String(now.getMinutes()).padStart(2, "0");
+      const time = `${h}:${m}`;
+      const dayNames = ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
+      const date = `${now.getMonth()+1}월 ${now.getDate()}일 ${dayNames[now.getDay()]}`;
 
-      const weekNames = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-      const dateString = `${now.getMonth() + 1}월 ${now.getDate()}일 ${weekNames[now.getDay()]}`;
-
-      document.getElementById("statusTime").textContent = timeString;
-      document.getElementById("homeStatusTime").textContent = timeString;
-      document.getElementById("lockTime").textContent = timeString;
-      document.getElementById("lockDate").textContent = dateString;
+      document.getElementById("statusTime").textContent = time;
+      document.getElementById("lockTime").textContent = time;
+      document.getElementById("lockDate").textContent = date;
     }
 
     function unlockPhone() {
@@ -561,32 +877,143 @@
       homeScreen.style.display = "block";
     }
 
-    function openApp(appName) {
+    function hideAllApps() {
+      appIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = "none";
+      });
+    }
+
+    function openApp(appId) {
       homeScreen.style.display = "none";
-      Object.values(appMap).forEach(app => app.style.display = "none");
-      if (appMap[appName]) {
-        appMap[appName].style.display = "block";
-      }
+      hideAllApps();
+      const target = document.getElementById(appId);
+      if (target) target.style.display = "block";
     }
 
     function goHome() {
-      Object.values(appMap).forEach(app => app.style.display = "none");
+      hideAllApps();
       homeScreen.style.display = "block";
     }
 
-    unlockButton.addEventListener("click", unlockPhone);
     lockScreen.addEventListener("click", unlockPhone);
 
-    document.querySelectorAll(".app").forEach(app => {
-      app.addEventListener("click", (e) => {
+    document.querySelectorAll(".app-icon-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
         e.stopPropagation();
-        const appName = app.dataset.app;
-        if (appName) openApp(appName);
+        const appId = btn.dataset.app;
+        if (appId) openApp(appId);
       });
     });
 
+    /* =========================
+       카카오톡 렌더링
+       ========================= */
+
+    const kakaoRoomList = document.getElementById("kakaoRoomList");
+    const chatDetailView = document.getElementById("chatDetailView");
+
+    function renderKakaoRooms() {
+      kakaoRoomList.innerHTML = "";
+
+      KAKAO_ROOMS.forEach((room, index) => {
+        const roomEl = document.createElement("div");
+        roomEl.className = "chat-room";
+        roomEl.innerHTML = `
+          <div class="chat-avatar">${room.avatar || room.name.charAt(0)}</div>
+          <div class="chat-info">
+            <div class="chat-name-row">
+              <div class="chat-name">${room.name}</div>
+              <div class="chat-time">${room.time || ""}</div>
+            </div>
+            <div class="chat-preview">${room.preview || ""}</div>
+          </div>
+        `;
+        roomEl.addEventListener("click", () => openChatDetail(index));
+        kakaoRoomList.appendChild(roomEl);
+      });
+    }
+
+    function openChatDetail(index) {
+      const room = KAKAO_ROOMS[index];
+      kakaoRoomList.style.display = "none";
+      chatDetailView.style.display = "block";
+
+      chatDetailView.innerHTML = `
+        <div class="chat-header">
+          <button class="back-btn" onclick="closeChatDetail()">← 목록</button>
+          <div class="app-title">${room.name}</div>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+      `;
+
+      const chatMessages = document.getElementById("chatMessages");
+
+      room.messages.forEach(msg => {
+        const row = document.createElement("div");
+        row.className = `bubble-row ${msg.from}`;
+        row.innerHTML = `
+          <div class="bubble">${msg.text}</div>
+          <div class="bubble-time">${msg.time || ""}</div>
+        `;
+        chatMessages.appendChild(row);
+      });
+    }
+
+    function closeChatDetail() {
+      chatDetailView.style.display = "none";
+      kakaoRoomList.style.display = "flex";
+    }
+
+    window.closeChatDetail = closeChatDetail;
+    window.goHome = goHome;
+
+    /* =========================
+       메모 렌더링
+       ========================= */
+
+    const notesList = document.getElementById("notesList");
+
+    function renderNotes() {
+      notesList.innerHTML = "";
+      NOTES_DATA.forEach(note => {
+        const item = document.createElement("div");
+        item.className = "note-card";
+        item.innerHTML = `
+          <div class="note-title">${note.title}</div>
+          <div class="note-body">${note.body}</div>
+        `;
+        notesList.appendChild(item);
+      });
+    }
+
+    /* =========================
+       전화기록 렌더링
+       ========================= */
+
+    const callList = document.getElementById("callList");
+
+    function renderCalls() {
+      callList.innerHTML = "";
+      CALL_LOGS.forEach(call => {
+        const item = document.createElement("div");
+        item.className = "call-item";
+        item.innerHTML = `
+          <div class="call-left">
+            <div class="call-name">${call.name}</div>
+            <div class="call-meta">${call.type} · ${call.detail}</div>
+          </div>
+          <div class="call-time">${call.time}</div>
+        `;
+        callList.appendChild(item);
+      });
+    }
+
     updateTime();
-    setInterval(updateTime, 1000 * 30);
+    setInterval(updateTime, 30000);
+    renderKakaoRooms();
+    renderNotes();
+    renderCalls();
   </script>
 </body>
 </html>
