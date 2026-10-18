@@ -1,34 +1,592 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#11121a">
-  <meta name="description" content="한 사람의 휴대폰 속에 남겨진 이야기">
-  <title>어느 날의 iPhone</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="content.js" defer></script>
-  <script src="app.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seulgi iPhone Story</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #f4d8c6, #efe6dc, #d9c0a5);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .phone {
+      width: 360px;
+      max-width: 100%;
+      height: 740px;
+      background: #111;
+      border-radius: 42px;
+      padding: 12px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+      position: relative;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 32px;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+
+    .wallpaper {
+      background-image: url("./wallpaper.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .overlay-dark {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.28),
+        rgba(0,0,0,0.18),
+        rgba(0,0,0,0.4)
+      );
+    }
+
+    .status-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 18px 18px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      z-index: 5;
+    }
+
+    .dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 32px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 6;
+    }
+
+    .lock-screen,
+    .home-screen,
+    .app-screen {
+      position: absolute;
+      inset: 0;
+    }
+
+    .lock-content {
+      position: relative;
+      z-index: 4;
+      height: 100%;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 100px 24px 28px;
+      text-align: center;
+    }
+
+    .date {
+      font-size: 20px;
+      opacity: 0.95;
+      margin-bottom: 6px;
+    }
+
+    .time {
+      font-size: 72px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -2px;
+      margin-bottom: 18px;
+    }
+
+    .lock-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 10px;
+      margin-bottom: 8px;
+    }
+
+    .lock-sub {
+      font-size: 14px;
+      line-height: 1.55;
+      opacity: 0.95;
+      max-width: 260px;
+    }
+
+    .swipe-hint {
+      background: rgba(255,255,255,0.18);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      backdrop-filter: blur(10px);
+      margin-bottom: 8px;
+    }
+
+    .home-screen {
+      display: none;
+      color: white;
+    }
+
+    .home-inner {
+      position: relative;
+      z-index: 4;
+      height: 100%;
+      padding: 64px 18px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .home-header {
+      text-align: left;
+      margin-bottom: 12px;
+    }
+
+    .home-header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .home-header p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      opacity: 0.95;
+      line-height: 1.5;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px 12px;
+      align-content: start;
+      margin-top: 18px;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .app-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .app-label {
+      font-size: 12px;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.35);
+    }
+
+    .dock {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(14px);
+    }
+
+    .app-screen {
+      display: none;
+      background: #f7f7fb;
+      color: #111;
+      z-index: 20;
+    }
+
+    .app-topbar {
+      padding: 52px 16px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #e6e6ef;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 3;
+    }
+
+    .back-btn {
+      border: none;
+      background: #ececf4;
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .app-title {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .app-content {
+      padding: 16px;
+      height: calc(100% - 76px);
+      overflow: auto;
+    }
+
+    .message-list,
+    .note-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .message-item,
+    .note-item {
+      background: white;
+      border-radius: 18px;
+      padding: 14px 15px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    .message-name {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .message-preview {
+      color: #555;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .note-item h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .note-item p {
+      margin: 0;
+      color: #444;
+      line-height: 1.6;
+      font-size: 14px;
+      white-space: pre-line;
+    }
+
+    .photo-card {
+      background: white;
+      border-radius: 22px;
+      padding: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    .photo-card img {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+    }
+
+    .photo-caption {
+      font-size: 14px;
+      color: #444;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .info-box {
+      background: white;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      line-height: 1.7;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 430px) {
+      body {
+        padding: 0;
+        background: #111;
+      }
+
+      .phone {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        padding: 0;
+      }
+
+      .screen {
+        border-radius: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="desktop-caption"><span class="dot"></span> INTERACTIVE STORY <span class="caption-right">A PHONE FULL OF SECRETS</span></div>
-  <main class="stage">
-    <div class="phone-frame">
-      <div class="phone" id="phone">
-        <div class="wallpaper"></div>
-        <div class="status"><span id="statusTime">9:41</span><span class="island" aria-hidden="true"></span><span class="signals">●●● ▂▃▅ ▰</span></div>
-        <div class="lock-view" id="lockView">
-          <div class="lock-top"><div class="lock-symbol">♙</div><div id="lockDate">10월 18일 일요일</div><div class="lock-clock" id="lockClock">9:41</div></div>
-          <div class="notifications" id="lockNotifications"></div>
-          <div class="lock-bottom"><div class="lock-shortcuts"><div>⌁</div><div>◎</div></div><button id="unlock" class="unlock" type="button">위로 쓸어올리거나 눌러서 열기 <span>⌃</span></button></div>
+  <div class="phone">
+    <div class="screen wallpaper">
+      <div class="dynamic-island"></div>
+
+      <!-- LOCK SCREEN -->
+      <section class="lock-screen" id="lockScreen">
+        <div class="overlay-dark"></div>
+
+        <div class="status-bar">
+          <span id="statusTime">9:41</span>
+          <span>📶  Wi‑Fi  🔋</span>
         </div>
-        <div class="home-view hidden" id="homeView"><div class="widget"><div class="widget-day" id="widgetDay">18</div><div class="widget-text"><strong>오늘의 기록</strong><span>아직 끝나지 않은 이야기.</span></div></div><div class="app-grid" id="appGrid"></div><div class="dock" id="dock"></div></div>
-        <section id="appView" class="app-view hidden" aria-live="polite"><div class="app-header"><button class="back-btn" id="backBtn">‹ 뒤로</button><strong id="appTitle"></strong><span id="appHeaderRight"></span></div><div class="app-body" id="appBody"></div><div class="app-footer" id="appFooter"></div></section>
-        <button class="home-indicator" id="homeIndicator" aria-label="홈 화면으로 이동"></button>
-      </div>
+
+        <div class="lock-content">
+          <div>
+            <div class="date" id="lockDate">10월 18일 일요일</div>
+            <div class="time" id="lockTime">9:41</div>
+            <div class="lock-title">오늘의 기록</div>
+            <div class="lock-sub">
+              메시지, 사진, 메모 사이에 숨어 있는 작은 이야기.  
+              화면을 눌러 잠금을 해제해보세요.
+            </div>
+          </div>
+
+          <div class="swipe-hint" id="unlockButton">탭해서 열기</div>
+        </div>
+      </section>
+
+      <!-- HOME SCREEN -->
+      <section class="home-screen" id="homeScreen">
+        <div class="overlay-dark"></div>
+
+        <div class="status-bar">
+          <span id="homeStatusTime">9:41</span>
+          <span>📶  Wi‑Fi  🔋</span>
+        </div>
+
+        <div class="home-inner">
+          <div>
+            <div class="home-header">
+              <h1>누군가의 아이폰을<br>열어보세요.</h1>
+              <p>아래 앱들을 눌러 작은 이야기들을 둘러볼 수 있어요.</p>
+            </div>
+
+            <div class="app-grid">
+              <div class="app" data-app="photos">
+                <div class="app-icon">🌼</div>
+                <div class="app-label">사진</div>
+              </div>
+
+              <div class="app" data-app="messages">
+                <div class="app-icon">💬</div>
+                <div class="app-label">메시지</div>
+              </div>
+
+              <div class="app" data-app="notes">
+                <div class="app-icon">📝</div>
+                <div class="app-label">메모</div>
+              </div>
+
+              <div class="app" data-app="info">
+                <div class="app-icon">✨</div>
+                <div class="app-label">정보</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dock">
+            <div class="app" data-app="messages">
+              <div class="app-icon">📞</div>
+            </div>
+            <div class="app" data-app="photos">
+              <div class="app-icon">🖼️</div>
+            </div>
+            <div class="app" data-app="notes">
+              <div class="app-icon">🗒️</div>
+            </div>
+            <div class="app" data-app="info">
+              <div class="app-icon">⚙️</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHOTOS APP -->
+      <section class="app-screen" id="photosApp">
+        <div class="app-topbar">
+          <button class="back-btn" onclick="goHome()">← 뒤로</button>
+          <div class="app-title">사진</div>
+        </div>
+        <div class="app-content">
+          <div class="photo-card">
+            <img src="./wallpaper.jpg" alt="wallpaper photo">
+            <div class="photo-caption">
+              오늘의 사진.  
+              같이 남긴 순간들은 작은 필름처럼 오래 남아.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MESSAGES APP -->
+      <section class="app-screen" id="messagesApp">
+        <div class="app-topbar">
+          <button class="back-btn" onclick="goHome()">← 뒤로</button>
+          <div class="app-title">메시지</div>
+        </div>
+        <div class="app-content">
+          <div class="message-list">
+            <div class="message-item">
+              <div class="message-name">오늘의 기록</div>
+              <div class="message-preview">사진 한 장에도 하루의 분위기가 다 들어간다.</div>
+            </div>
+            <div class="message-item">
+              <div class="message-name">비밀 메세지</div>
+              <div class="message-preview">평범해 보이는 화면 안에도 누군가의 마음이 숨어 있다.</div>
+            </div>
+            <div class="message-item">
+              <div class="message-name">메모</div>
+              <div class="message-preview">이 웹사이트는 GitHub Pages로 열 수 있는 작은 인터랙티브 스토리예요.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTES APP -->
+      <section class="app-screen" id="notesApp">
+        <div class="app-topbar">
+          <button class="back-btn" onclick="goHome()">← 뒤로</button>
+          <div class="app-title">메모</div>
+        </div>
+        <div class="app-content">
+          <div class="note-list">
+            <div class="note-item">
+              <h3>10월 18일</h3>
+              <p>오늘의 기록은 아직 끝나지 않은 이야기.
+사진, 메시지, 메모 사이에 남겨 둔 작은 마음들.</p>
+            </div>
+            <div class="note-item">
+              <h3>생각</h3>
+              <p>이 사이트는 하나의 휴대폰 안을 탐험하는 느낌으로 만들었다.
+원하면 나중에 카카오톡, 갤러리, 통화기록 스타일도 더 추가할 수 있다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INFO APP -->
+      <section class="app-screen" id="infoApp">
+        <div class="app-topbar">
+          <button class="back-btn" onclick="goHome()">← 뒤로</button>
+          <div class="app-title">정보</div>
+        </div>
+        <div class="app-content">
+          <div class="info-box">
+            <strong>Fictional Phone Experience</strong><br><br>
+            이 페이지는 실제 아이폰이 아니라,  
+            누군가의 휴대폰을 탐험하는 느낌을 주는 인터랙티브 웹페이지예요.<br><br>
+            원하는 경우 나중에 아래 기능도 더 넣을 수 있어요.
+            <br><br>
+            • 카카오톡 채팅방  
+            • 사진 여러 장 갤러리  
+            • 메모 상세 페이지  
+            • 통화 기록  
+            • 비밀번호 잠금 해제 연출  
+            • 진짜 앱처럼 화면 전환 애니메이션
+          </div>
+        </div>
+      </section>
     </div>
-    <div class="side-note"><p class="eyebrow">A LITTLE DIGITAL UNIVERSE</p><h1>누군가의<br>아이폰을<br>열어보세요.</h1><p>메시지, 사진, 메모 사이에<br>숨어 있는 작은 이야기.</p><div class="side-hint">화면을 클릭해 잠금을 해제하세요 →</div></div>
-  </main>
-  <footer>FICTIONAL PHONE EXPERIENCE · 모든 내용은 예시로 제작되었습니다.</footer>
+  </div>
+
+  <script>
+    const lockScreen = document.getElementById("lockScreen");
+    const homeScreen = document.getElementById("homeScreen");
+    const unlockButton = document.getElementById("unlockButton");
+
+    const appMap = {
+      photos: document.getElementById("photosApp"),
+      messages: document.getElementById("messagesApp"),
+      notes: document.getElementById("notesApp"),
+      info: document.getElementById("infoApp")
+    };
+
+    function updateTime() {
+      const now = new Date();
+      const hour = now.getHours();
+      const minute = String(now.getMinutes()).padStart(2, "0");
+      const timeString = `${hour}:${minute}`;
+
+      const weekNames = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+      const dateString = `${now.getMonth() + 1}월 ${now.getDate()}일 ${weekNames[now.getDay()]}`;
+
+      document.getElementById("statusTime").textContent = timeString;
+      document.getElementById("homeStatusTime").textContent = timeString;
+      document.getElementById("lockTime").textContent = timeString;
+      document.getElementById("lockDate").textContent = dateString;
+    }
+
+    function unlockPhone() {
+      lockScreen.style.display = "none";
+      homeScreen.style.display = "block";
+    }
+
+    function openApp(appName) {
+      homeScreen.style.display = "none";
+      Object.values(appMap).forEach(app => app.style.display = "none");
+      if (appMap[appName]) {
+        appMap[appName].style.display = "block";
+      }
+    }
+
+    function goHome() {
+      Object.values(appMap).forEach(app => app.style.display = "none");
+      homeScreen.style.display = "block";
+    }
+
+    unlockButton.addEventListener("click", unlockPhone);
+    lockScreen.addEventListener("click", unlockPhone);
+
+    document.querySelectorAll(".app").forEach(app => {
+      app.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const appName = app.dataset.app;
+        if (appName) openApp(appName);
+      });
+    });
+
+    updateTime();
+    setInterval(updateTime, 1000 * 30);
+  </script>
 </body>
 </html>
