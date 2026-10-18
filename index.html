@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#11121a">
+  <meta name="description" content="한 사람의 휴대폰 속에 남겨진 이야기">
+  <title>어느 날의 iPhone</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="content.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="desktop-caption"><span class="dot"></span> INTERACTIVE STORY <span class="caption-right">A PHONE FULL OF SECRETS</span></div>
+  <main class="stage">
+    <div class="phone-frame">
+      <div class="phone" id="phone">
+        <div class="wallpaper"></div>
+        <div class="status"><span id="statusTime">9:41</span><span class="island" aria-hidden="true"></span><span class="signals">●●● ▂▃▅ ▰</span></div>
+        <div class="lock-view" id="lockView">
+          <div class="lock-top"><div class="lock-symbol">♙</div><div id="lockDate">10월 18일 일요일</div><div class="lock-clock" id="lockClock">9:41</div></div>
+          <div class="notifications" id="lockNotifications"></div>
+          <div class="lock-bottom"><div class="lock-shortcuts"><div>⌁</div><div>◎</div></div><button id="unlock" class="unlock" type="button">위로 쓸어올리거나 눌러서 열기 <span>⌃</span></button></div>
+        </div>
+        <div class="home-view hidden" id="homeView"><div class="widget"><div class="widget-day" id="widgetDay">18</div><div class="widget-text"><strong>오늘의 기록</strong><span>아직 끝나지 않은 이야기.</span></div></div><div class="app-grid" id="appGrid"></div><div class="dock" id="dock"></div></div>
+        <section id="appView" class="app-view hidden" aria-live="polite"><div class="app-header"><button class="back-btn" id="backBtn">‹ 뒤로</button><strong id="appTitle"></strong><span id="appHeaderRight"></span></div><div class="app-body" id="appBody"></div><div class="app-footer" id="appFooter"></div></section>
+        <button class="home-indicator" id="homeIndicator" aria-label="홈 화면으로 이동"></button>
+      </div>
+    </div>
+    <div class="side-note"><p class="eyebrow">A LITTLE DIGITAL UNIVERSE</p><h1>누군가의<br>아이폰을<br>열어보세요.</h1><p>메시지, 사진, 메모 사이에<br>숨어 있는 작은 이야기.</p><div class="side-hint">화면을 클릭해 잠금을 해제하세요 →</div></div>
+  </main>
+  <footer>FICTIONAL PHONE EXPERIENCE · 모든 내용은 예시로 제작되었습니다.</footer>
+</body>
+</html>
