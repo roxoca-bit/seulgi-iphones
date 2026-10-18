@@ -13,25 +13,32 @@
 const PHONE_OWNER='강슬기';
 const KAKAO_ROOMS=[
 {name:'혀니',profile:'profile-hyeoni.jpg',time:'오후 5:57',unread:1,preview:'모해',messages:[
- {from:'them',text:'오늘 몇 시에 끝나?',time:'오전 11:55'},
- {from:'me',text:'8시에 끝나 오늘;;',time:'오전 11:56',read:1},
- {from:'them',text:'나도 7시..',time:'오전 11:56'},
- {from:'them',text:'중간에 친구 온다는데',time:'오전 11:56'},
- {from:'me',text:'ㅋㅋㅋㅋㅋ',time:'오전 11:57',read:1}
+ {from:'them',text:'주이나 오늘 몇 시에 끝나?',time:'오전 11:55'},
+ {from:'me',text:'8시에 끝나 오늘',time:'오전 11:56'},
+ {from:'them',text:'올 때 떡볶이',time:'오전 11:56'},
+ {from:'them',text:'응급실 부상맛 오뎅추가',time:'오전 11:56'},
+ {from:'me',text:'이따가 같이 먹자',time:'오전 11:57'},
+ {from:'them',text:'짜증나 주말에 출근하는 게 어딨어.',time:'오후 2:55'},
+ {from:'me',text:'대표니까 어쩔 수 없지....',time:'오후 2:56'},
+ {from:'them',text:'ㅡㅡ',time:'오후 3:16'},
+ {from:'them',text:'물어 뜯어버릴거야',time:'오후 3:19'},
+ {from:'me',text:'알았어 얼른 하고 갈게 ㅋㅋㅋㅋ',time:'오후 6:57',read:1},
 ]},
-{name:'박진아',profile:'',time:'오후 4:30',unread:0,preview:'오늘도 야근합니까',messages:[
- {from:'them',text:'오늘도 야근합니까',time:'오후 4:29'},
- {from:'me',text:'응 ㅋㅋ',time:'오후 4:30'}
+{name:'손승완',profile:'',time:'오후 4:30',unread:0,preview:'오키 고마워',messages:[
+ {from:'them',text:'오늘도 주말 근무?',time:'오후 4:29'},
+ {from:'me',text:'응 ㅋㅋ',time:'오후 4:30'}, 
+ {from:'them',text:'주현씨 선물 리스트 보내드릴게요 이따가',time:'오후 4:29'},
+ {from:'me',text:'오키 고마워',time:'오후 4:30'},
 ]},
 {name:'카카오톡',profile:'icon-kakao.jpg',time:'오후 7:18',unread:1,preview:'[PC버전 자동로그인]',messages:[{from:'them',text:'[PC버전 자동로그인]',time:'오후 7:18'}]}
 ];
-const NOTES_DATA=[{title:'10월 18일',body:'강슬기의 메모 내용을 여기에 적으세요.\n줄바꿈도 가능해요.'},{title:'비밀 메모',body:'스토리의 단서를 넣어 보세요.'}];
+const NOTES_DATA=[{title:'10월 18일',body:'결혼기념일 선물 준비하기'},{title:'안마의자',body:'렌탈비용 12만원.'}];
 const CALL_LOGS=[
-{name:'엄마',direction:'↙',type:'휴대전화',time:'오후 9:13',missed:false},
-{name:'010-9759-2439',direction:'↙',type:'대한민국',time:'오전 11:16',missed:false},
-{name:'깜냥♥',direction:'↗',type:'휴대전화',time:'오전 11:13',missed:false},
-{name:'Chae🐳',direction:'↙',type:'카카오톡 음성 통화',time:'오전 10:20',missed:false},
-{name:'박진아',direction:'↙',type:'휴대전화',time:'어제',missed:true}
+{name:'혀니',direction:'↙',type:'휴대전화',time:'오후 9:13',missed:false},
+{name:'R무역 김대표님',direction:'↙',type:'대한민국',time:'오전 11:16',missed:false},
+{name:'혀니',direction:'↗',type:'휴대전화',time:'오전 11:13',missed:false},
+{name:'손승완',direction:'↙',type:'카카오톡 음성 통화',time:'오전 10:20',missed:false},
+{name:'혀니',direction:'↙',type:'휴대전화',time:'어제',missed:true}
 ];
 /* ↓ 아래는 작동 코드입니다. */
 const $=id=>document.getElementById(id);const E=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e};
